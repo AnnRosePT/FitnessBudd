@@ -12,25 +12,30 @@ from src.savings.entity import SavingsContribution, SavingsGoal
 
 
 def _month_key(d: date) -> str:
+    """Format date to 'YYYY-MM' format string."""
     return d.strftime("%Y-%m")
 
 
 def _shift_month(year: int, month: int, delta: int) -> tuple[int, int]:
+    """Calculate target (year, month) tuple shifted by delta months."""
     index = year * 12 + (month - 1) + delta
     return index // 12, index % 12 + 1
 
 
 def _last_months(year: int, month: int, count: int) -> list[tuple[int, int]]:
+    """Return a sequence of (year, month) tuples ending at the given year and month."""
     return [_shift_month(year, month, -offset) for offset in range(count - 1, -1, -1)]
 
 
 def _pct_change(current: float, previous: float) -> float | None:
+    """Calculate percentage change between current and previous values."""
     if not previous:
         return None
     return round((current - previous) / previous * 100, 1)
 
 
 def get_analytics_overview(db: Session, user_id: int, month: str | None = None, months: int = 7):
+    """Compile comprehensive financial analytics overview for a given user."""
     today = date.today()
     if month:
         year, mon = (int(part) for part in month.split("-"))
