@@ -19,10 +19,12 @@ pwd_context = CryptContext(schemes=["pbkdf2_sha256", "bcrypt"], deprecated="auto
 
 
 def hash_password(password: str) -> str:
+    """Hash a plaintext password using the configured CryptContext."""
     return pwd_context.hash(password)
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """Verify that a plaintext password matches the stored hash."""
     try:
         return pwd_context.verify(plain_password, hashed_password)
     except (ValueError, TypeError):
@@ -30,6 +32,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 
 def create_access_token(user_id: int) -> str:
+    """Generate a signed JWT access token for the given user ID."""
     expires_at = datetime.now(timezone.utc) + timedelta(
         minutes=ACCESS_TOKEN_EXPIRE_MINUTES
     )
@@ -43,6 +46,7 @@ def create_access_token(user_id: int) -> str:
 
 
 def find_user_by_email(db: Session, email: str):
+    """Query and return a user by normalized email address."""
     return db.query(User).filter(User.email == email.strip().lower()).first()
 
 
