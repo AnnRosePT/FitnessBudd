@@ -8,6 +8,14 @@ monthly budgets, reach savings goals, get alerts, and export reports.
 * **Backend:** FastAPI + SQLAlchemy, JWT auth, role-based access (Student / Premium / Admin)
 * **Database:** SQLite for local development, PostgreSQL in production
 
+### 📚 Documentation Links
+- [System Architecture](docs/architecture.md)
+- [REST API Reference](server/docs/api_endpoints.md)
+- [Frontend Components Guide](client/docs/components.md)
+- [Deployment Runbook](docs/deployment.md)
+- [Contributing Guidelines](CONTRIBUTING.md)
+- [Security Policy](SECURITY.md)
+
 ---
 
 ## 1. Quick start (local)
